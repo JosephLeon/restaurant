@@ -37,7 +37,7 @@ def accept_tip():
     if enter_tip == "yes":
         print "accepted tip"
     elif enter_tip == "no":
-        starting_tip = raw_input("Please enter the tip percentage: ")
+        starting_tip = raw_input("Please enter the tip percentage (no '%' needed): ")
         starting_tip = float(starting_tip)
     else:
         print "You need to enter a yes or a no."
@@ -50,4 +50,4 @@ meal_cost = raw_input("Now let's figure out the tip is...\n What is the cost of 
 meal_cost = float(meal_cost)
 
 tip = meal_cost * (starting_tip/100)
-print tip
+print "${:.2f}".format(tip)
