@@ -10,16 +10,19 @@ def accept_tip():
         print "You need to enter a yes or a no."
         accept_tip()
 
+# Array of allowed values for ratings.
+rating_values = ['12345']
+
 # Get user input on restaurant experience.
 service_rating = raw_input("On a scale of 1 to 5 how would you rate the service? ")
-if service_rating != ['1', '2', '3', '4', '5']:
+if service_rating not in rating_values:
     print "Rating needs to be a number between 1 and 5."
     service_rating = raw_input("On a scale of 1 to 5 how would you rate the service? ")
 else:
     True
 
 food_rating = raw_input("On a scale of 1 to 5 how would you rate the food? ")
-if food_rating == ['1', '2', '3', '4', '5']:
+if food_rating not in rating_values:
     print "Rating needs to be a number between 1 and 5."
     food_rating = raw_input("On a scale of 1 to 5 how would you rate the food? ")
 else:
