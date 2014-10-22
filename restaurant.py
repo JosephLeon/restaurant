@@ -41,12 +41,8 @@ while True:
             print 'Out of range. Try again'
 
 # Set data types to float for calculations.
-print "Service Rating: ", service_rating
-print "Food Rating: ", food_rating
 service_rating = float(service_rating)
 food_rating = float(food_rating)
-print "Service Rating after Float: ", service_rating
-print "Food Rating after Float: ", food_rating
 
 # Set start tip percentage.
 starting_tip = 10
