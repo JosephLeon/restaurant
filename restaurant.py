@@ -10,28 +10,43 @@ def accept_tip():
         print "You need to enter a yes or a no."
         accept_tip()
 
-# Array of allowed values for ratings.
-rating_values = ['12345']
+def verify_rating_value(value, allowed_values, rating_type):
+    if rating_type not in allowed_values:
+        print "Rating needs to be a number between 1 and 5."
+        rating_type = raw_input("On a scale of 1 to 5 how would you rate the %s? " % (rating_type))
+    else:
+        True
 
 # Get user input on restaurant experience.
-service_rating = raw_input("On a scale of 1 to 5 how would you rate the service? ")
-if service_rating not in rating_values:
-    print "Rating needs to be a number between 1 and 5."
-    service_rating = raw_input("On a scale of 1 to 5 how would you rate the service? ")
-else:
-    True
+while True:
+    try:
+        service_rating = int(raw_input("On a scale of 1 to 5 how would you rate the service? "))
+    except ValueError:  # just catch the exceptions you know!
+        print 'That\'s not a number!'
+    else:
+        if 1 <= service_rating <= 5:  # this is faster
+            break
+        else:
+            print 'Out of range. Try again'
 
-food_rating = raw_input("On a scale of 1 to 5 how would you rate the food? ")
-if food_rating not in rating_values:
-    print "Rating needs to be a number between 1 and 5."
-    food_rating = raw_input("On a scale of 1 to 5 how would you rate the food? ")
-else:
-    True
+while True:
+    try:
+        food_rating = int(raw_input("On a scale of 1 to 5 how would you rate the food? "))
+    except ValueError:  # just catch the exceptions you know!
+        print 'That\'s not a number!'
+    else:
+        if 1 <= food_rating <= 5:  # this is faster
+            break
+        else:
+            print 'Out of range. Try again'
 
 # Set data types to float for calculations.
-print service_rating
+print "Service Rating: ", service_rating
+print "Food Rating: ", food_rating
 service_rating = float(service_rating)
 food_rating = float(food_rating)
+print "Service Rating after Float: ", service_rating
+print "Food Rating after Float: ", food_rating
 
 # Set start tip percentage.
 starting_tip = 10
@@ -61,12 +76,14 @@ else:
 
 print "Your suggested tip percentage is:", "{0:.0f}%".format(starting_tip)
 
+# User decides if to accept tip.
 accept_tip()
 
 # Get value of meal.
 meal_cost = raw_input("Now let's figure out the tip is...\n What is the cost of the meal? ")
 meal_cost = float(meal_cost)
 
-# Print tip amount.
+# Calculate tip amount and print it.
+starting_tip = float(starting_tip)
 tip = meal_cost * (starting_tip/100)
 print "${:.2f}".format(tip)
