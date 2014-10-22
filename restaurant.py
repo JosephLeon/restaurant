@@ -1,10 +1,3 @@
-"""
-Restaurant service based tip calculator.
-
-Adjusts the tip based on food and service quality. Will upload the rating to a
-site so users can see a restaurants average tip and ratings.
-"""
-
 # Accept or reject generated tip percentage.
 def accept_tip():
     global starting_tip
