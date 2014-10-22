@@ -1,21 +1,15 @@
 # Accept or reject generated tip percentage.
 def accept_tip():
+    global starting_tip
     enter_tip = raw_input("Do you want to use this percentage to calculate your tip? (yes/no) ")
     if enter_tip == "yes":
         print "accepted tip"
     elif enter_tip == "no":
-        starting_tip = raw_input("Please enter the tip percentage (no '%' needed): ")
-        starting_tip = float(starting_tip)
+        starting_tip = float(raw_input("Please enter the tip percentage (no '%' needed): "))
     else:
         print "You need to enter a yes or a no."
         accept_tip()
-
-def verify_rating_value(value, allowed_values, rating_type):
-    if rating_type not in allowed_values:
-        print "Rating needs to be a number between 1 and 5."
-        rating_type = raw_input("On a scale of 1 to 5 how would you rate the %s? " % (rating_type))
-    else:
-        True
+    return starting_tip
 
 # Get user input on restaurant experience.
 while True:
