@@ -1,3 +1,18 @@
+# import kivy
+# kivy.require('1.8.0')
+
+# from kivy.app import App
+# from kivy.uix.label import Label
+
+# class RestauranterScholar(App):
+
+#     def build(self):
+#         return Label(text='Hello world')
+
+
+# if __name__ == '__main__':
+#     RestauranterScholar().run()
+
 # Accept or reject generated tip percentage.
 def accept_tip():
     global starting_tip
