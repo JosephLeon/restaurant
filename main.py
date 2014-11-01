@@ -82,11 +82,14 @@ class RestaurantMate(App):
 
             # starting_tip = float(starting_tip)
             meal_cost = float(food_cost.text)
+            print food_cost.text
+            print meal_cost
             tip = meal_cost * (starting_tip/100)
+            format_tip = "${:.2f}".format(tip)
             popup = Popup(
                 title='Suggested Tip',
                 content=Label(
-                    text='Your suggested tip is\n ' + str(starting_tip) + '%\n' + 'Which is $' + str(tip),
+                    text='Your suggested tip is\n ' + str(starting_tip) + '%\n' + 'Which is ' + str(format_tip),
                     multiline=True,
                 ),
                 # content="Your suggested tip percentage is:",
