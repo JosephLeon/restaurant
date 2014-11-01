@@ -8,8 +8,6 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.graphics import Color, Rectangle, Line
-from kivy.graphics.instructions import InstructionGroup
 from kivy.uix.popup import Popup
 
 class RestaurantMate(App):
@@ -80,10 +78,7 @@ class RestaurantMate(App):
             adjust_tip(service_rating_value)
             adjust_tip(food_rating_value)
 
-            # starting_tip = float(starting_tip)
             meal_cost = float(food_cost.text)
-            print food_cost.text
-            print meal_cost
             tip = meal_cost * (starting_tip/100)
             format_tip = "${:.2f}".format(tip)
             popup = Popup(
@@ -92,11 +87,9 @@ class RestaurantMate(App):
                     text='Your suggested tip is\n ' + str(starting_tip) + '%\n' + 'Which is ' + str(format_tip),
                     multiline=True,
                 ),
-                # content="Your suggested tip percentage is:",
                 auto_dismiss=False,
             )
             popup.open()
-            print('The button <%s> is being pressed' % instance.text)
 
         input_btn.bind(on_press=calculate_tip)
 
