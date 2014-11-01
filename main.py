@@ -14,6 +14,9 @@ from kivy.uix.popup import Popup
 
 class RestaurantMate(App):
     def build(self):
+        global starting_tip
+        starting_tip = 10
+
         controls = AnchorLayout(
             anchor_x='right',
             anchor_y='top',
@@ -57,9 +60,6 @@ class RestaurantMate(App):
             background_color=[0,1.7,0,1]
         )
 
-        starting_tip = 10
-        print starting_tip
-
         def adjust_tip(rating):
             global starting_tip
             if rating == 1:
@@ -75,20 +75,22 @@ class RestaurantMate(App):
             return starting_tip
 
         def calculate_tip(instance):
-            global starting_tip
-            # print starting_tip
-            print service_rating.text
-            # adjust_tip(service_rating)
-            # adjust_tip(food_rating)
+            service_rating_value = float(service_rating.text)
+            food_rating_value = float(food_rating.text)
+            adjust_tip(service_rating_value)
+            adjust_tip(food_rating_value)
 
             # starting_tip = float(starting_tip)
-            # tip = meal_cost * (starting_tip/100)
-            # print "Tip: ${:.2f}".format(tip)
-            # print "Your suggested tip percentage is:", "{0:.0f}%".format(starting_tip)
+            meal_cost = float(food_cost.text)
+            tip = meal_cost * (starting_tip/100)
             popup = Popup(
                 title='Suggested Tip',
-                content=Label(text='Hello world'),
-                auto_dismiss=False
+                content=Label(
+                    text='Your suggested tip is\n ' + str(starting_tip) + '%\n' + 'Which is $' + str(tip),
+                    multiline=True,
+                ),
+                # content="Your suggested tip percentage is:",
+                auto_dismiss=False,
             )
             popup.open()
             print('The button <%s> is being pressed' % instance.text)
