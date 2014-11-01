@@ -10,6 +10,7 @@ from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.graphics import Color, Rectangle, Line
 from kivy.graphics.instructions import InstructionGroup
+from kivy.uix.popup import Popup
 
 class RestaurantMate(App):
     def build(self):
@@ -48,8 +49,21 @@ class RestaurantMate(App):
             size_hint_x=None,
             width=200
         )
-        input_btn = Button(text='Calculate Tip', font_size=40, size_hint_x=None,
-                          width=200, background_color=[0,1.7,0,1])
+        input_btn = Button(
+            text='Calculate Tip',
+            font_size=20,
+            size_hint_x=None,
+            width=200,
+            background_color=[0,1.7,0,1]
+        )
+
+        def calculate_tip(instance):
+            popup = Popup(title='Test popup', content=Label(text='Hello world'),
+                          auto_dismiss=False)
+            popup.open()
+            print('The button <%s> is being pressed' % instance.text)
+
+        input_btn.bind(on_press=calculate_tip)
 
         controls.add_widget(box)
         box.add_widget(service_rating_label)
