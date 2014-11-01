@@ -57,9 +57,39 @@ class RestaurantMate(App):
             background_color=[0,1.7,0,1]
         )
 
+        starting_tip = 10
+        print starting_tip
+
+        def adjust_tip(rating):
+            global starting_tip
+            if rating == 1:
+                starting_tip = starting_tip - 5
+            elif rating == 2:
+                starting_tip = starting_tip - 2.5
+            elif rating == 3:
+                starting_tip = starting_tip + 2.5
+            elif rating == 4:
+                starting_tip = starting_tip + 3.5
+            else:
+                starting_tip = starting_tip + 5
+            return starting_tip
+
         def calculate_tip(instance):
-            popup = Popup(title='Test popup', content=Label(text='Hello world'),
-                          auto_dismiss=False)
+            global starting_tip
+            # print starting_tip
+            print service_rating.text
+            # adjust_tip(service_rating)
+            # adjust_tip(food_rating)
+
+            # starting_tip = float(starting_tip)
+            # tip = meal_cost * (starting_tip/100)
+            # print "Tip: ${:.2f}".format(tip)
+            # print "Your suggested tip percentage is:", "{0:.0f}%".format(starting_tip)
+            popup = Popup(
+                title='Suggested Tip',
+                content=Label(text='Hello world'),
+                auto_dismiss=False
+            )
             popup.open()
             print('The button <%s> is being pressed' % instance.text)
 
