@@ -2,13 +2,14 @@ import kivy
 kivy.require('1.8.0')
 
 from kivy.app import App
-from kivy.uix.widget import Widget
+from kivy.properties import Properties
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
+
 
 class RestaurantMate(App):
     def build(self):
@@ -30,7 +31,9 @@ class RestaurantMate(App):
         service_rating = TextInput(
             font_size=18,
             size_hint_x=None,
-            width=200
+            width=200,
+            input_filter='int',
+            input_type='number',
         )
         food_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the food?',
@@ -55,7 +58,7 @@ class RestaurantMate(App):
             font_size=20,
             size_hint_x=None,
             width=200,
-            background_color=[0,1.7,0,1]
+            background_color=[0, 1.7, 0, 1]
         )
 
         def adjust_tip(rating):
