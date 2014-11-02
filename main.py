@@ -2,7 +2,8 @@ import kivy
 kivy.require('1.8.0')
 
 from kivy.app import App
-from kivy.properties import Properties
+from kivy.properties import BoundedNumericProperty
+# from kivy.event import EventDispatcher
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -32,9 +33,34 @@ class RestaurantMate(App):
             font_size=18,
             size_hint_x=None,
             width=200,
-            input_filter='int',
-            input_type='number',
+            # input_filter='int',
+            # input_type='number',
+            # focus=True,
+            hint_text='Nya',
+            hint_text_color=[255, 0, 0, 1],
+            scroll_x=5,
         )
+        # def on_text(instance, value):
+        #     # global saved_value
+        #     print value
+        #     print type(value)
+        #     try:
+        #         int(value)
+        #         if 1 <= service_rating.text <= 5:
+        #             service_rating.text=service_rating.text
+        #             pass
+
+        #     except ValueError:
+        #         print "Not 1 through 5"
+        #     except NameError:
+        #         pass
+
+        # service_rating.bind(text=on_text)
+
+        # service_rating.text = BoundedNumericProperty(
+        #     1, min=1, max=5,
+        #     errorhandler=lambda x: 5 if x > 5 else 1)
+
         food_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the food?',
             font_size=18,
@@ -76,6 +102,9 @@ class RestaurantMate(App):
             return starting_tip
 
         def calculate_tip(instance):
+
+
+
             service_rating_value = float(service_rating.text)
             food_rating_value = float(food_rating.text)
             adjust_tip(service_rating_value)
@@ -106,6 +135,11 @@ class RestaurantMate(App):
         box.add_widget(input_btn)
 
         return controls
+
+
+# class Validation(EventDispatcher):
+#     global service_rating
+    # service_rating.text = BoundedNumericProperty(1, min=0, max=5)
 
 if __name__ == '__main__':
     RestaurantMate().run()
