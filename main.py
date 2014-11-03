@@ -31,31 +31,34 @@ class RestaurantMate(App):
         )
         service_rating = TextInput(
             font_size=18,
-            size_hint_x=None,
-            width=200,
+            # size_hint_x=None,
+            # width=200,
+            multiline=False,
             # input_filter='int',
             # input_type='number',
             # focus=True,
-            hint_text='Nya',
+            hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
-            scroll_x=5,
+
+            # scroll_x=5,
         )
-        # def on_text(instance, value):
-        #     # global saved_value
-        #     print value
-        #     print type(value)
-        #     try:
-        #         int(value)
-        #         if 1 <= service_rating.text <= 5:
-        #             service_rating.text=service_rating.text
-        #             pass
+        def on_text(instance, value):
+            # global saved_value
+            print value
+            print type(value)
+            try:
+                int(value)
+                if 1 <= service_rating.text <= 5:
+                    # service_rating.text=service_rating.text
+                    pass
 
-        #     except ValueError:
-        #         print "Not 1 through 5"
-        #     except NameError:
-        #         pass
+            except ValueError:
+                print "Not 1 through 5"
+            except NameError:
+                pass
 
-        # service_rating.bind(text=on_text)
+        service_rating.bind(text=on_text)
+        # service_rating.bind(on_text_validate=on_text)
 
         # service_rating.text = BoundedNumericProperty(
         #     1, min=1, max=5,
@@ -119,7 +122,9 @@ class RestaurantMate(App):
                     text='Your suggested tip is\n ' + str(starting_tip) + '%\n' + 'Which is ' + str(format_tip),
                     multiline=True,
                 ),
-                auto_dismiss=False,
+                # auto_dismiss=False,
+                size_hint=(None, None),
+                size=(400, 400),
             )
             popup.open()
 
