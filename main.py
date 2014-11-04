@@ -2,8 +2,6 @@ import kivy
 kivy.require('1.8.0')
 
 from kivy.app import App
-from kivy.properties import BoundedNumericProperty
-# from kivy.event import EventDispatcher
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -39,11 +37,9 @@ class RestaurantMate(App):
             # focus=True,
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
-
-            # scroll_x=5,
         )
+
         def on_text(instance, value):
-            # global saved_value
             print value
             print type(value)
             try:
@@ -106,8 +102,6 @@ class RestaurantMate(App):
 
         def calculate_tip(instance):
 
-
-
             service_rating_value = float(service_rating.text)
             food_rating_value = float(food_rating.text)
             adjust_tip(service_rating_value)
@@ -140,11 +134,6 @@ class RestaurantMate(App):
         box.add_widget(input_btn)
 
         return controls
-
-
-# class Validation(EventDispatcher):
-#     global service_rating
-    # service_rating.text = BoundedNumericProperty(1, min=0, max=5)
 
 if __name__ == '__main__':
     RestaurantMate().run()
