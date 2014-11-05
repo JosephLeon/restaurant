@@ -1,5 +1,5 @@
 import kivy
-kivy.require('1.8.0')
+kivy.require('1.9.0')
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -39,21 +39,27 @@ class RestaurantMate(App):
             hint_text_color=[255, 0, 0, 1],
         )
 
-        def on_text(instance, value):
-            print value
-            print type(value)
-            try:
-                int(value)
-                if 1 <= service_rating.text <= 5:
-                    # service_rating.text=service_rating.text
-                    pass
+        def on_enter(instance, value):
+                print('User pressed enter in', instance)
 
-            except ValueError:
-                print "Not 1 through 5"
-            except NameError:
-                pass
+        service_rating.bind(on_text_validate=on_enter)
 
-        service_rating.bind(text=on_text)
+        # def on_text(instance, value):
+        #     print value
+        #     print type(value)
+        #     try:
+        #         int(value)
+        #         if 1 <= service_rating.text <= 5:
+        #             # service_rating.text=service_rating.text
+        #             pass
+
+        #     except ValueError:
+        #         print "Not 1 through 5"
+        #     except NameError:
+        #         pass
+
+        # service_rating.bind(text=on_text)
+        # ****
         # service_rating.bind(on_text_validate=on_text)
 
         # service_rating.text = BoundedNumericProperty(
