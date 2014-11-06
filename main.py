@@ -8,7 +8,6 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
-# from kivy.properties import Properties
 
 
 class RestaurantMate(App):
@@ -29,22 +28,14 @@ class RestaurantMate(App):
             font_size=18,
         )
 
-        def one_to_five(value, is_undo):
-            if '1' <= value <= '5':
-                # print dir(value)
-                # print len(value)
-                # value = value.index
-                # print value.count
-                # print value.index
-                print value
-                return value
-            return ''
-
         def on_text(instance, value):
-            print len(value)
-            if len(value) <= 2:
+            global length_value
+            length_value = len(value)
+            return length_value
+
+        def one_to_five(value, is_undo):
+            if '1' <= value <= '5' and length_value < 1:
                 return value
-                print('The widget', instance, 'have:', value)
             return ''
 
         service_rating = TextInput(
