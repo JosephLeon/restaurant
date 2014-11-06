@@ -8,6 +8,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
+# from kivy.properties import Properties
 
 
 class RestaurantMate(App):
@@ -27,44 +28,35 @@ class RestaurantMate(App):
             text='On a scale of 1 to 5 how would you rate the service?',
             font_size=18,
         )
+
+        def one_to_five(value, is_undo):
+            if '1' <= value <= '5':
+                # print dir(value)
+                # print len(value)
+                # value = value.index
+                # print value.count
+                # print value.index
+                print value
+                return value
+            return ''
+
+        def on_text(instance, value):
+            print len(value)
+            if len(value) <= 2:
+                return value
+                print('The widget', instance, 'have:', value)
+            return ''
+
         service_rating = TextInput(
             font_size=18,
-            # size_hint_x=None,
-            # width=200,
             multiline=False,
-            input_filter='int',
+            input_filter=one_to_five,
             input_type='number',
-            # focus=True,
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
         )
 
-        def on_enter(instance, value):
-                print('User pressed enter in', instance)
-
-        service_rating.bind(on_text_validate=on_enter)
-
-        # def on_text(instance, value):
-        #     print value
-        #     print type(value)
-        #     try:
-        #         int(value)
-        #         if 1 <= service_rating.text <= 5:
-        #             # service_rating.text=service_rating.text
-        #             pass
-
-        #     except ValueError:
-        #         print "Not 1 through 5"
-        #     except NameError:
-        #         pass
-
-        # service_rating.bind(text=on_text)
-        # ****
-        # service_rating.bind(on_text_validate=on_text)
-
-        # service_rating.text = BoundedNumericProperty(
-        #     1, min=1, max=5,
-        #     errorhandler=lambda x: 5 if x > 5 else 1)
+        service_rating.bind(text=on_text)
 
         food_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the food?',
@@ -76,7 +68,7 @@ class RestaurantMate(App):
             width=200
         )
         food_cost_label = Label(
-            text='On a scale of 1 to 5 how would you rate the food?',
+            text='How much did the meal cost?',
             font_size=18,
         )
         food_cost = TextInput(
@@ -122,9 +114,9 @@ class RestaurantMate(App):
                     text='Your suggested tip is\n ' + str(starting_tip) + '%\n' + 'Which is ' + str(format_tip),
                     multiline=True,
                 ),
-                # auto_dismiss=False,
                 size_hint=(None, None),
-                size=(400, 400),
+                size=(300, 200),
+                font_size=18,
             )
             popup.open()
 
