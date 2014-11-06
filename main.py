@@ -15,12 +15,7 @@ class OneToFiveInput(TextInput):
     pat = re.compile('[^1-5]')
     def insert_text(self, substring, from_undo=False):
         pat = self.pat
-        # if '1' <= self.text <= '5':
-        #     s = re.sub(pat, '', substring)
-        if '.' in self.text:
-            s = re.sub(pat, '', substring)
-        else:
-            s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+        s = re.sub(pat, '', substring)
         return super(OneToFiveInput, self).insert_text(s, from_undo=from_undo)
 
 
@@ -52,19 +47,21 @@ class RestaurantMate(App):
             text='On a scale of 1 to 5 how would you rate the service?',
             font_size=18,
         )
-
-        def on_text(instance, value):
-            global length_value
-            length_value = len(value)
-            return length_value
-
-        def one_to_five(value, is_undo):
-            # if '1' <= value <= '5' and length_value < 1:
-            if '1' <= value <= '5':
-                return value
-            return ''
-
         service_rating = OneToFiveInput(
+            font_size=18,
+            multiline=False,
+            # input_filter=on_text,
+            input_filter='int',
+            input_type='number',
+            hint_text='Must be a number 1 through 5',
+            hint_text_color=[255, 0, 0, 1],
+        )
+
+        food_rating_label = Label(
+            text='On a scale of 1 to 5 how would you rate the food?',
+            font_size=18,
+        )
+        food_rating = TextInput(
             font_size=18,
             multiline=False,
             # input_filter=one_to_five,
@@ -73,18 +70,7 @@ class RestaurantMate(App):
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
         )
-        food_rating_label = Label(
-            text='On a scale of 1 to 5 how would you rate the food?',
-            font_size=18,
-        )
-        food_rating = TextInput(
-            font_size=18,
-            multiline=False,
-            input_filter=one_to_five,
-            input_type='number',
-            hint_text='Must be a number 1 through 5',
-            hint_text_color=[255, 0, 0, 1],
-        )
+
         food_cost_label = Label(
             text='How much did the meal cost?',
             font_size=18,
@@ -93,9 +79,6 @@ class RestaurantMate(App):
             font_size=18,
             hint_text='Enter cost of meal without "$"',
         )
-
-        service_rating.bind(text=on_text)
-        # food_rating.bind(text=on_text)
 
         input_btn = Button(
             text='Calculate Tip',
@@ -120,7 +103,6 @@ class RestaurantMate(App):
             return starting_tip
 
         def calculate_tip(instance):
-
             service_rating_value = float(service_rating.text)
             food_rating_value = float(food_rating.text)
             adjust_tip(service_rating_value)
