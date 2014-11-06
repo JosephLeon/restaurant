@@ -46,17 +46,17 @@ class RestaurantMate(App):
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
         )
-
-        service_rating.bind(text=on_text)
-
         food_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the food?',
             font_size=18,
         )
         food_rating = TextInput(
             font_size=18,
-            size_hint_x=None,
-            width=200
+            multiline=False,
+            input_filter=one_to_five,
+            input_type='number',
+            hint_text='Must be a number 1 through 5',
+            hint_text_color=[255, 0, 0, 1],
         )
         food_cost_label = Label(
             text='How much did the meal cost?',
@@ -67,6 +67,10 @@ class RestaurantMate(App):
             size_hint_x=None,
             width=200
         )
+
+        service_rating.bind(text=on_text)
+        food_rating.bind(text=on_text)
+
         input_btn = Button(
             text='Calculate Tip',
             font_size=20,
