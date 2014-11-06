@@ -10,6 +10,18 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
 
 
+class Test:
+  print 'test worked'
+
+
+class CapitalInput(TextInput):
+
+    def insert_text(self, substring, from_undo=False):
+        s = substring.upper()
+        return super(CapitalInput, self).insert_text(s,\
+        from_undo=from_undo)
+
+
 class RestaurantMate(App):
     def build(self):
         global starting_tip
@@ -34,7 +46,8 @@ class RestaurantMate(App):
             return length_value
 
         def one_to_five(value, is_undo):
-            if '1' <= value <= '5' and length_value < 1:
+            # if '1' <= value <= '5' and length_value < 1:
+            if '1' <= value <= '5':
                 return value
             return ''
 
@@ -117,7 +130,21 @@ class RestaurantMate(App):
 
         input_btn.bind(on_press=calculate_tip)
 
+        ''' Testing classes'''
+        Test()
+
+        test = CapitalInput(
+            font_size=18,
+            multiline=False,
+            hint_text='Test',
+            hint_text_color=[255, 0, 0, 1],
+        )
+
         controls.add_widget(box)
+
+        ''' Testing classes'''
+        box.add_widget(test)
+        ''' End Testing classes'''
         box.add_widget(service_rating_label)
         box.add_widget(service_rating)
         box.add_widget(food_rating_label)
@@ -125,6 +152,7 @@ class RestaurantMate(App):
         box.add_widget(food_cost_label)
         box.add_widget(food_cost)
         box.add_widget(input_btn)
+
 
         return controls
 
