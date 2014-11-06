@@ -24,6 +24,17 @@ class OneToFiveInput(TextInput):
         return super(OneToFiveInput, self).insert_text(s, from_undo=from_undo)
 
 
+class FloatInput(TextInput):
+    pat = re.compile('[^0-9]')
+    def insert_text(self, substring, from_undo=False):
+        pat = self.pat
+        if '.' in self.text:
+            s = re.sub(pat, '', substring)
+        else:
+            s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+        return super(FloatInput, self).insert_text(s, from_undo=from_undo)
+
+
 class RestaurantMate(App):
     def build(self):
         global starting_tip
@@ -78,10 +89,9 @@ class RestaurantMate(App):
             text='How much did the meal cost?',
             font_size=18,
         )
-        food_cost = TextInput(
+        food_cost = FloatInput(
             font_size=18,
-            size_hint_x=None,
-            width=200
+            hint_text='Enter cost of meal without "$"',
         )
 
         service_rating.bind(text=on_text)
