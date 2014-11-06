@@ -69,7 +69,7 @@ class RestaurantMate(App):
         )
 
         service_rating.bind(text=on_text)
-        food_rating.bind(text=on_text)
+        # food_rating.bind(text=on_text)
 
         input_btn = Button(
             text='Calculate Tip',
