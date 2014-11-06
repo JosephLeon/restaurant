@@ -1,5 +1,6 @@
 import kivy
 kivy.require('1.9.0')
+import re
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -10,16 +11,17 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
 
 
-class Test:
-  print 'test worked'
-
-
-class CapitalInput(TextInput):
-
+class OneToFiveInput(TextInput):
+    pat = re.compile('[^1-5]')
     def insert_text(self, substring, from_undo=False):
-        s = substring.upper()
-        return super(CapitalInput, self).insert_text(s,\
-        from_undo=from_undo)
+        pat = self.pat
+        # if '1' <= self.text <= '5':
+        #     s = re.sub(pat, '', substring)
+        if '.' in self.text:
+            s = re.sub(pat, '', substring)
+        else:
+            s = '.'.join([re.sub(pat, '', s) for s in substring.split('.', 1)])
+        return super(OneToFiveInput, self).insert_text(s, from_undo=from_undo)
 
 
 class RestaurantMate(App):
@@ -51,10 +53,11 @@ class RestaurantMate(App):
                 return value
             return ''
 
-        service_rating = TextInput(
+        service_rating = OneToFiveInput(
             font_size=18,
             multiline=False,
-            input_filter=one_to_five,
+            # input_filter=one_to_five,
+            input_filter='int',
             input_type='number',
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
@@ -130,21 +133,7 @@ class RestaurantMate(App):
 
         input_btn.bind(on_press=calculate_tip)
 
-        ''' Testing classes'''
-        Test()
-
-        test = CapitalInput(
-            font_size=18,
-            multiline=False,
-            hint_text='Test',
-            hint_text_color=[255, 0, 0, 1],
-        )
-
         controls.add_widget(box)
-
-        ''' Testing classes'''
-        box.add_widget(test)
-        ''' End Testing classes'''
         box.add_widget(service_rating_label)
         box.add_widget(service_rating)
         box.add_widget(food_rating_label)
@@ -152,7 +141,6 @@ class RestaurantMate(App):
         box.add_widget(food_cost_label)
         box.add_widget(food_cost)
         box.add_widget(input_btn)
-
 
         return controls
 
