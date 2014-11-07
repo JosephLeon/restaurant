@@ -43,6 +43,15 @@ class RestaurantMate(App):
             orientation='vertical'
         )
 
+        def one_character(value, allownone=False):
+            if len(service_rating.text) < 1 and len(food_rating.text) < 1:
+                print 'value:', value
+                print 'service_rating.text:', service_rating.text
+                print 'Length of service_rating.text:', len(service_rating.text)
+                return value
+            # elif len(food_rating.text) < 1:
+            #     return value
+
         service_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the service?',
             font_size=18,
@@ -50,8 +59,7 @@ class RestaurantMate(App):
         service_rating = OneToFiveInput(
             font_size=18,
             multiline=False,
-            # input_filter=on_text,
-            input_filter='int',
+            input_filter=one_character,
             input_type='number',
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
@@ -61,11 +69,10 @@ class RestaurantMate(App):
             text='On a scale of 1 to 5 how would you rate the food?',
             font_size=18,
         )
-        food_rating = TextInput(
+        food_rating = OneToFiveInput(
             font_size=18,
             multiline=False,
-            # input_filter=one_to_five,
-            input_filter='int',
+            input_filter=one_character,
             input_type='number',
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
