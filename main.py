@@ -11,16 +11,21 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
 
 
+# Filters input value to be 1-5 and only one char long.
 class OneToFiveInput(TextInput):
     pat = re.compile('[^1-5]')
+
     def insert_text(self, substring, from_undo=False):
         pat = self.pat
         s = re.sub(pat, '', substring)
+        s = s[:1 - len(self.text)]
         return super(OneToFiveInput, self).insert_text(s, from_undo=from_undo)
 
 
+# Filters input value to be a float.
 class FloatInput(TextInput):
     pat = re.compile('[^0-9]')
+
     def insert_text(self, substring, from_undo=False):
         pat = self.pat
         if '.' in self.text:
@@ -35,6 +40,7 @@ class RestaurantMate(App):
         global starting_tip
         starting_tip = 10
 
+        # Layout.
         controls = AnchorLayout(
             anchor_x='right',
             anchor_y='top',
@@ -43,15 +49,7 @@ class RestaurantMate(App):
             orientation='vertical'
         )
 
-        def one_character(value, allownone=False):
-            if len(service_rating.text) < 1 and len(food_rating.text) < 1:
-                print 'value:', value
-                print 'service_rating.text:', service_rating.text
-                print 'Length of service_rating.text:', len(service_rating.text)
-                return value
-            # elif len(food_rating.text) < 1:
-            #     return value
-
+        # Service label and input.
         service_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the service?',
             font_size=18,
@@ -59,12 +57,12 @@ class RestaurantMate(App):
         service_rating = OneToFiveInput(
             font_size=18,
             multiline=False,
-            input_filter=one_character,
             input_type='number',
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
         )
 
+        # Food label and input.
         food_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the food?',
             font_size=18,
@@ -72,12 +70,12 @@ class RestaurantMate(App):
         food_rating = OneToFiveInput(
             font_size=18,
             multiline=False,
-            input_filter=one_character,
             input_type='number',
             hint_text='Must be a number 1 through 5',
             hint_text_color=[255, 0, 0, 1],
         )
 
+        # Food/Meal cost label and input.
         food_cost_label = Label(
             text='How much did the meal cost?',
             font_size=18,
@@ -87,6 +85,7 @@ class RestaurantMate(App):
             hint_text='Enter cost of meal without "$"',
         )
 
+        # Calc button.
         input_btn = Button(
             text='Calculate Tip',
             font_size=20,
@@ -95,6 +94,7 @@ class RestaurantMate(App):
             background_color=[0, 1.7, 0, 1]
         )
 
+        # Adjust the starting_tip value.
         def adjust_tip(rating):
             global starting_tip
             if rating == 1:
@@ -109,6 +109,7 @@ class RestaurantMate(App):
                 starting_tip = starting_tip + 5
             return starting_tip
 
+        # Calculate the tip and tip percentage.
         def calculate_tip(instance):
             service_rating_value = float(service_rating.text)
             food_rating_value = float(food_rating.text)
@@ -132,6 +133,7 @@ class RestaurantMate(App):
 
         input_btn.bind(on_press=calculate_tip)
 
+        # Render the objects.
         controls.add_widget(box)
         box.add_widget(service_rating_label)
         box.add_widget(service_rating)
