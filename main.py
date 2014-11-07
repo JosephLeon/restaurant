@@ -1,7 +1,6 @@
 import kivy
 kivy.require('1.9.0')
 import re
-
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -48,7 +47,8 @@ class RestaurantMate(App):
             anchor_y='top',
         )
         box = BoxLayout(
-            orientation='vertical'
+            orientation='vertical',
+            padding=10,
         )
 
         # Service label and input.
