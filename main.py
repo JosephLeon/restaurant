@@ -9,6 +9,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.popup import Popup
+from kivy.core.window import Window
 
 
 # Filters input value to be 1-5 and only one char long.
@@ -41,6 +42,7 @@ class RestaurantMate(App):
         starting_tip = 10
 
         # Layout.
+        Window.clearcolor = (1, 1, 1, 1)
         controls = AnchorLayout(
             anchor_x='right',
             anchor_y='top',
@@ -53,6 +55,7 @@ class RestaurantMate(App):
         service_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the service?',
             font_size=18,
+            color=[0, 0, 0, 1],
         )
         service_rating = OneToFiveInput(
             font_size=18,
@@ -65,6 +68,7 @@ class RestaurantMate(App):
         food_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the food?',
             font_size=18,
+            color=[0, 0, 0, 1],
         )
         food_rating = OneToFiveInput(
             font_size=18,
@@ -77,6 +81,7 @@ class RestaurantMate(App):
         food_cost_label = Label(
             text='How much did the meal cost?',
             font_size=18,
+            color=[0, 0, 0, 1],
         )
         food_cost = FloatInput(
             font_size=18,
