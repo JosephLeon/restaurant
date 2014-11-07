@@ -58,8 +58,7 @@ class RestaurantMate(App):
             font_size=18,
             multiline=False,
             input_type='number',
-            hint_text='Must be a number 1 through 5',
-            hint_text_color=[255, 0, 0, 1],
+            hint_text='Enter a number 1 through 5',
         )
 
         # Food label and input.
@@ -71,8 +70,7 @@ class RestaurantMate(App):
             font_size=18,
             multiline=False,
             input_type='number',
-            hint_text='Must be a number 1 through 5',
-            hint_text_color=[255, 0, 0, 1],
+            hint_text='Enter a number 1 through 5',
         )
 
         # Food/Meal cost label and input.
