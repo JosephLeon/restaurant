@@ -51,6 +51,16 @@ class RestaurantMate(App):
             padding=10,
         )
 
+        # Title.
+        apptitle = Label(
+            text='Restaurant Mate',
+            font_size=20,
+            shorten=True,
+            halign='left',
+            strip=True,
+            color=[0, 0, 0, 1],
+        )
+
         # Service label and input.
         service_rating_label = Label(
             text='On a scale of 1 to 5 how would you rate the service?',
@@ -138,6 +148,7 @@ class RestaurantMate(App):
 
         # Render the objects.
         controls.add_widget(box)
+        box.add_widget(apptitle)
         box.add_widget(service_rating_label)
         box.add_widget(service_rating)
         box.add_widget(food_rating_label)
